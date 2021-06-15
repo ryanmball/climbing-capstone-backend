@@ -10,10 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_15_180810) do
+ActiveRecord::Schema.define(version: 2021_06_15_185314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "collections", force: :cascade do |t|
+    t.string "name"
+    t.string "partners"
+    t.text "highlights"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.string "url"
+    t.integer "collection_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "records", force: :cascade do |t|
+    t.date "date"
+    t.integer "route_id"
+    t.string "grade"
+    t.string "result"
+    t.boolean "in_progress"
+    t.decimal "rating", precision: 2, scale: 1
+    t.string "partner"
+    t.text "comments"
+    t.integer "collection_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.string "mp_url"
+    t.string "grade"
+    t.decimal "lat", precision: 8, scale: 5
+    t.decimal "lon", precision: 8, scale: 5
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name"
