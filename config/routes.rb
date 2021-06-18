@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   get "/collections/:id" => "collections#show"
   patch "/collections/:id" => "collections#update"
   delete "/collections/:id" => "collections#destroy"
+
+  get "/routes" => "routes#index"
 end
