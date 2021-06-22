@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     # user.password = params[:password] || user.password
     # NEED TO FIGURE OUT HOW TO UPDATE PASSWORD
     if user.save
-      render json: { message: "User updated successfully", user: user }
+      render json: user, status: 200
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end

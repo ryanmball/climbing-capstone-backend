@@ -3,4 +3,8 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :collections
   has_many :records
+
+  # def current_user?
+  #   current_user.id == :id
+  # end
 end

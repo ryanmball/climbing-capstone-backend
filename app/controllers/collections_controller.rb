@@ -2,8 +2,8 @@ class CollectionsController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
   
   def index
-    # render json: Collection.where(user: current_user.id).order(:id)
-    render json: Collection.where(user: params[:user_id]).order(:id)
+    render json: Collection.where(user: current_user.id).order(:id)
+    # render json: Collection.where(user: params[:user_id]).order(:id)
   end
 
   def create
