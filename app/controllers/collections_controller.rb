@@ -2,7 +2,8 @@ class CollectionsController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
   
   def index
-    render json: Collection.all.order(:id)
+    # render json: Collection.where(user: current_user.id).order(:id)
+    render json: Collection.where(user: params[:user_id]).order(:id)
   end
 
   def create
@@ -25,9 +26,11 @@ class CollectionsController < ApplicationController
 
   def update
     collection = Collection.find(params[:id])
-    collection.name = params[:name] || collection.name
-    collection.partners = params[:partners] || collection.partners
-    collection.highlights = params[:highlights] || collection.highlights
+    if collection.user == current_user  # TEST THIS
+      collection.name = params[:name] || collection.name
+      collection.partners = params[:partners] || collection.partners
+      collection.highlights = params[:highlights] || collection.highlights
+    end
     if collection.save
       render json: collection         #HAPPY PATH
     else
@@ -37,7 +40,9 @@ class CollectionsController < ApplicationController
 
   def destroy
     collection = Collection.find(params[:id])
-    collection.destroy
-    render json: { message: "Collection successfully destroyed!"}
+    if collection.user == current_user  # TEST THIS
+      collection.destroy
+      render json: { message: "Collection successfully destroyed!"}
+    end
   end
 end

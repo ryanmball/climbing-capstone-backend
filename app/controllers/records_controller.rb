@@ -2,7 +2,7 @@ class RecordsController < ApplicationController
   before_action :authenticate_user, except: [:index, :show]
   
   def index
-    render json: Record.all.order(:id)
+    render json: Record.where(user_id: current_user.id).order(:date)
   end
 
   def create

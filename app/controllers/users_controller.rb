@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, except: [:index, :create]
+  before_action :authenticate_user, except: [:index, :update, :show]
 
   def index
     render json: User.all.order(:id)
@@ -21,7 +21,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: User.find(current_user.id)
+    user = User.find(params[:id])
+    render json: user
   end
   
   def update
@@ -32,15 +33,19 @@ class UsersController < ApplicationController
     # user.password = params[:password] || user.password
     # NEED TO FIGURE OUT HOW TO UPDATE PASSWORD
     if user.save
-      render json: { message: "User updated successfully" }
+      render json: { message: "User updated successfully", user: user }
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    user = User.find(current_user.id)
-    user.destroy
-    render json: { message: "User successfully destroyed!" }
+    if current_user.id == params[:id].to_i
+      user = User.find(current_user.id)
+      user.destroy
+      render json: { message: "User successfully destroyed!" }
+    else
+      render json: { message: "Unathorized" }, status: 401
+    end
   end
 end
