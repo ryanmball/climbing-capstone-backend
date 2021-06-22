@@ -20,4 +20,7 @@ Rails.application.routes.draw do
   delete "/collections/:id" => "collections#destroy"
 
   get "/routes" => "routes#index"
+
+  post "/images" => "images#create"
+  delete "/images/:id" => "images#destroy"
 end
