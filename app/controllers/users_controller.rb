@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, except: [:index, :update, :show]
+  before_action :authenticate_user, except: [:create]
 
   def index
     render json: User.all.order(:id)
@@ -30,6 +30,7 @@ class UsersController < ApplicationController
     user.first_name = params[:first_name] || user.first_name
     user.last_name = params[:last_name] || user.last_name
     user.email = params[:email] || user.email
+    user.profile_pic = params[:profile_pic] || user.profile_pic
     # user.password = params[:password] || user.password
     # NEED TO FIGURE OUT HOW TO UPDATE PASSWORD
     if user.save
