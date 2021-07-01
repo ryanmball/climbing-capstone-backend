@@ -41,3 +41,5 @@ gem 'jwt'
 gem 'csv'
 
 gem 'active_model_serializers'
+
+gem 'cloudinary'

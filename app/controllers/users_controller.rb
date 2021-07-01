@@ -27,12 +27,14 @@ class UsersController < ApplicationController
   
   def update
     user = User.find(current_user.id)
+    if params[:password] && params[:password_confirmation]
+      user.password = params[:password]
+      user.password_confirmation = params[:password_confirmation]
+    end
     user.first_name = params[:first_name] || user.first_name
     user.last_name = params[:last_name] || user.last_name
     user.email = params[:email] || user.email
     user.profile_pic = params[:profile_pic] || user.profile_pic
-    # user.password = params[:password] || user.password
-    # NEED TO FIGURE OUT HOW TO UPDATE PASSWORD
     if user.save
       render json: user, status: 200
     else
