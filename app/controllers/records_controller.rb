@@ -52,4 +52,24 @@ class RecordsController < ApplicationController
     record.destroy
     render json: { message: "Record successfully destroyed!"}
   end
+
+  def grades
+    grades = Record.where(user_id: current_user.id).pluck("grade")
+    render json: grades.uniq
+  end
+
+  def partners
+    partners = Record.where(user_id: current_user.id).pluck("partner")
+    render json: partners.uniq
+  end
+
+  # def crags
+  #   crags = Record.where(user_id: current_user.id).pluck("crag")
+  #   render json: crags.uniq
+  # end
+
+  # def areas
+  #   areas = Record.where(user_id: current_user.id).pluck("area")
+  #   render json: areas.uniq
+  # end
 end
