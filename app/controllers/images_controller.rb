@@ -2,8 +2,10 @@ class ImagesController < ApplicationController
   before_action :authenticate_user
   
   def create
+    response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
+    cloudinary_url = response["secure_url"]
     image = Image.new(
-     url: params[:url],
+     url: cloudinary_url,
      collection_id: params[:collection_id],
     )
     if image.save
