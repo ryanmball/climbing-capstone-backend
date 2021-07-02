@@ -54,22 +54,29 @@ class RecordsController < ApplicationController
   end
 
   def grades
-    grades = Record.where(user_id: current_user.id).pluck("grade")
+    grades = Record.where(user_id: current_user.id).pluck(:grade)
     render json: grades.uniq
   end
 
   def partners
-    partners = Record.where(user_id: current_user.id).pluck("partner")
+    partners = Record.where(user_id: current_user.id).pluck(:partner)
     render json: partners.uniq
   end
 
-  # def crags
-  #   crags = Record.where(user_id: current_user.id).pluck("crag")
-  #   render json: crags.uniq
-  # end
+  def crags
+    records = Record.where(user_id: current_user.id)
+    crags = records.map { |record| record.route.crag }
+    render json: crags.uniq
+  end
 
-  # def areas
-  #   areas = Record.where(user_id: current_user.id).pluck("area")
-  #   render json: areas.uniq
-  # end
+  def areas
+    records = Record.where(user_id: current_user.id)
+    areas = records.map { |record| record.route.area }
+    render json: areas.uniq
+  end
+
+  def collections
+    collections = Collection.where(user_id: current_user.id)
+    render json: collections
+  end
 end

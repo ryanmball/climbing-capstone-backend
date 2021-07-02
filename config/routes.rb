@@ -13,11 +13,12 @@ Rails.application.routes.draw do
   patch "/records/:id" => "records#update"
   delete "/records/:id" => "records#destroy"
   
-  # Data for filters
+  # Data for filters & dropdowns
   get "/grades" => "records#grades"
   get "/partners" => "records#partners"
   get "/crags" => "records#crags"
   get "/areas" => "records#areas"
+  get "/collections" => "records#collections"
   
   get "/collections" => "collections#index"
   post "/collections" => "collections#create"
