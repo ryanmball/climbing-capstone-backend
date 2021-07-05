@@ -9,6 +9,8 @@ require "csv"
 #     grade: row[3],
 #     lat: row[4],
 #     lon: row[5],
+#     crag: row[6],
+#     area: row[7],
 #   )
 # end
 
@@ -28,9 +30,9 @@ require "csv"
 #   )
 # end
 
-Collection.create(
-  name: "Rifle",
-  partners: "Mariah, Dylan, Dillon, Will, Beth, Kathleen, Mark",
-  highlights: "Rifle was freaking awesome. Climbing summer camp for adults is a very fitting name. So much fun to walk between crags and the vibe was just fantastic. To top it off, every route I tried was unique and SO FUN. Can't wait to get back for Ricochet, Family Jewels and Baby Jesus",
-  user_id: 1,
-)
+# Collection.create(
+#   name: "Rifle",
+#   partners: "Mariah, Dylan, Dillon, Will, Beth, Kathleen, Mark",
+#   highlights: "Rifle was freaking awesome. Climbing summer camp for adults is a very fitting name. So much fun to walk between crags and the vibe was just fantastic. To top it off, every route I tried was unique and SO FUN. Can't wait to get back for Ricochet, Family Jewels and Baby Jesus",
+#   user_id: 1,
+# )
