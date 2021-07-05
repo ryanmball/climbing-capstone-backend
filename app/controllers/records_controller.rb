@@ -55,7 +55,7 @@ class RecordsController < ApplicationController
 
   def grades
     grades = Record.where(user_id: current_user.id).pluck(:grade)
-    render json: grades.uniq
+    render json: grades.uniq.sort
   end
 
   def partners
