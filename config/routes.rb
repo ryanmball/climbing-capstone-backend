@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   # Data for graphs
   get "/grades_all" => "records#grades_graph_all"
   get "/grades_sent" => "records#grades_graph_sent"
+  get "/climbing_days" => "records#days_per_month"
   
   get "/collections" => "collections#index"
   post "/collections" => "collections#create"

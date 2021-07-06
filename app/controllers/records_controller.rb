@@ -123,4 +123,23 @@ class RecordsController < ApplicationController
 
     render json: grades_array
   end
+
+  def days_per_month
+    dates = Record.where(user_id: current_user.id).pluck(:date).uniq
+    dates.map! { |date| date.to_s[0..-4] }
+    years = dates.map { |date| date[0..-4] }.uniq
+    dates2019 = { "2019-01" => 0, "2019-02" => 0, "2019-03" => 0, "2019-04" => 0, "2019-05" => 0, "2019-06" => 0, "2019-07" => 0, "2019-08" => 0, "2019-09" => 0, "2019-10" => 0, "2019-11" => 0, "2019-12" => 0 }
+    dates2020 = { "2020-01" => 0, "2020-02" => 0, "2020-03" => 0, "2020-04" => 0, "2020-05" => 0, "2020-06" => 0, "2020-07" => 0, "2020-08" => 0, "2020-09" => 0, "2020-10" => 0, "2020-11" => 0, "2020-12" => 0 }
+    dates2021 = { "2021-01" => 0, "2021-02" => 0, "2021-03" => 0, "2021-04" => 0, "2021-05" => 0, "2021-06" => 0, "2021-07" => 0, "2021-08" => 0, "2021-09" => 0, "2021-10" => 0, "2021-11" => 0, "2021-12" => 0 }
+    # dates.each { |date| dates2019[date] += 1 }
+    # dates.each { |date| dates2020[date] += 1 }
+    dates.each { |date| dates2021[date] += 1 }
+    dates_all = { "2019" => {}, "2020" => {}, "2021" => {} }
+    dates_all["2019"] = dates2019
+    dates_all["2020"] = dates2020
+    dates_all["2021"] = dates2021
+    if years.include? "2021"
+      render json: dates
+    end
+  end
 end
