@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   get "/crags" => "records#crags"
   get "/areas" => "records#areas"
   get "/collections" => "records#collections"
+
+  # Data for graphs
+  get "/grades_all" => "records#grades_graph_all"
+  get "/grades_sent" => "records#grades_graph_sent"
   
   get "/collections" => "collections#index"
   post "/collections" => "collections#create"

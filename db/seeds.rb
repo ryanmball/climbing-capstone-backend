@@ -36,3 +36,14 @@ require "csv"
 #   highlights: "Rifle was freaking awesome. Climbing summer camp for adults is a very fitting name. So much fun to walk between crags and the vibe was just fantastic. To top it off, every route I tried was unique and SO FUN. Can't wait to get back for Ricochet, Family Jewels and Baby Jesus",
 #   user_id: 1,
 # )
+
+# Route.create(
+#   name: "Projectile Dysfunction",
+#   location: "3. Trailhead Wall > Monitor Rock > Independence Pass > Colorado",
+#   mp_url: "https://www.mountainproject.com/route/120913702/projectile-dysfunction",
+#   grade: "5.11a",
+#   lat: 39.07260,
+#   lon: -106.45130,
+#   crag: "3. Trailhead Wall",
+#   area: "Monitor Rock"
+# )

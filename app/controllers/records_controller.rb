@@ -53,6 +53,7 @@ class RecordsController < ApplicationController
     render json: { message: "Record successfully destroyed!"}
   end
 
+  # Filters
   def grades
     grades = Record.where(user_id: current_user.id).pluck(:grade)
     render json: grades.uniq.sort
@@ -78,5 +79,48 @@ class RecordsController < ApplicationController
   def collections
     collections = Collection.where(user_id: current_user.id)
     render json: collections
+  end
+
+  # Graphs
+  def grades_graph_all
+    grades = Record.where(user_id: current_user.id).pluck(:grade)
+    grades_hash = Hash.new(0)
+    grades.each { |grade| grades_hash[grade] += 1 }
+
+    grades_hash.delete("5.5")
+    grades_hash.delete("5.6")
+    grades_hash.delete("5.7")
+    grades_hash.delete("5.8")
+    grades_hash.delete("5.9")
+
+    grades_array = []
+    grades_hash.each do |grade, num|
+      grades_array << [grade, num]
+    end
+    grades_array.sort_by! { |grade| grade[0] }
+    grades_array.unshift(["", ""])
+
+    render json: grades_array
+  end
+
+  def grades_graph_sent
+    grades = Record.where(user_id: current_user.id).where(["result = ? OR result = ? OR result = ?", "onsight", "flash", "redpoint"]).pluck(:grade)
+    grades_hash = Hash.new(0)
+    grades.each { |grade| grades_hash[grade] += 1 }
+
+    grades_hash.delete("5.5")
+    grades_hash.delete("5.6")
+    grades_hash.delete("5.7")
+    grades_hash.delete("5.8")
+    grades_hash.delete("5.9")
+
+    grades_array = []
+    grades_hash.each do |grade, num|
+      grades_array << [grade, num]
+    end
+    grades_array.sort_by! { |grade| grade[0] }
+    grades_array.unshift(["", ""])
+
+    render json: grades_array
   end
 end
