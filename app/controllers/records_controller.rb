@@ -124,20 +124,34 @@ class RecordsController < ApplicationController
     render json: grades_array
   end
 
-  def days_per_month
+  def climbing_days
     dates = Record.where(user_id: current_user.id).pluck(:date).uniq
     dates.map! { |date| date.to_s[0..-4] }
+    dates2019 = []
+    dates2020 = []
+    dates2021 = []
+    dates.each do |date|
+      if date.include? "2019"
+        dates2019 << date
+      elsif date.include? "2020"
+        dates2020 << date
+      elsif date.include? "2021"
+        dates2021 << date
+      end
+    end
     years = dates.map { |date| date[0..-4] }.uniq
 
     dates_hash2019 = { "2019-01" => 0, "2019-02" => 0, "2019-03" => 0, "2019-04" => 0, "2019-05" => 0, "2019-06" => 0, "2019-07" => 0, "2019-08" => 0, "2019-09" => 0, "2019-10" => 0, "2019-11" => 0, "2019-12" => 0 }
     dates_hash2020 = { "2020-01" => 0, "2020-02" => 0, "2020-03" => 0, "2020-04" => 0, "2020-05" => 0, "2020-06" => 0, "2020-07" => 0, "2020-08" => 0, "2020-09" => 0, "2020-10" => 0, "2020-11" => 0, "2020-12" => 0 }
     dates_hash2021 = { "2021-01" => 0, "2021-02" => 0, "2021-03" => 0, "2021-04" => 0, "2021-05" => 0, "2021-06" => 0, "2021-07" => 0, "2021-08" => 0, "2021-09" => 0, "2021-10" => 0, "2021-11" => 0, "2021-12" => 0 }
     if years.include? "2019"
-      dates.each { |date| dates_hash2019[date] += 1 }
-    elsif years.include? "2020"
-      dates.each { |date| dates_hash2020[date] += 1 }
-    elsif years.include? "2021"
-      dates.each { |date| dates_hash2021[date] += 1 }
+      dates2019.each { |date| dates_hash2019[date] += 1 }
+    end
+    if years.include? "2020"
+      dates2020.each { |date| dates_hash2020[date] += 1 }
+    end
+    if years.include? "2021"
+      dates2021.each { |date| dates_hash2021[date] += 1 }
     end
 
     dates2019 = []
@@ -161,25 +175,6 @@ class RecordsController < ApplicationController
     dates_all["2020"] = dates2020
     dates_all["2021"] = dates2021
 
-    render json: dates_all
-  end
-
-  def days_per_year
-    dates = Record.where(user_id: current_user.id).pluck(:date).uniq
-    dates.map! { |date| date.to_s[0..-4] }
-    years = dates.map { |date| date[0..-4] }.uniq
-
-    dates_hash2019 = { "2019-01" => 0, "2019-02" => 0, "2019-03" => 0, "2019-04" => 0, "2019-05" => 0, "2019-06" => 0, "2019-07" => 0, "2019-08" => 0, "2019-09" => 0, "2019-10" => 0, "2019-11" => 0, "2019-12" => 0 }
-    dates_hash2020 = { "2020-01" => 0, "2020-02" => 0, "2020-03" => 0, "2020-04" => 0, "2020-05" => 0, "2020-06" => 0, "2020-07" => 0, "2020-08" => 0, "2020-09" => 0, "2020-10" => 0, "2020-11" => 0, "2020-12" => 0 }
-    dates_hash2021 = { "2021-01" => 0, "2021-02" => 0, "2021-03" => 0, "2021-04" => 0, "2021-05" => 0, "2021-06" => 0, "2021-07" => 0, "2021-08" => 0, "2021-09" => 0, "2021-10" => 0, "2021-11" => 0, "2021-12" => 0 }
-    if years.include? "2019"
-      dates.each { |date| dates_hash2019[date] += 1 }
-    elsif years.include? "2020"
-      dates.each { |date| dates_hash2020[date] += 1 }
-    elsif years.include? "2021"
-      dates.each { |date| dates_hash2021[date] += 1 }
-    end
-
     days2019 = 0
     dates_hash2019.sum { |month, num| days2019+=num }
     days2020 = 0
@@ -191,6 +186,7 @@ class RecordsController < ApplicationController
     total_days["2019"] = days2019
     total_days["2020"] = days2020
     total_days["2021"] = days2021
-    render json: total_days
+
+    render json: { days_per_month: dates_all, days_per_year: total_days }
   end
 end
