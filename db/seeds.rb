@@ -38,12 +38,12 @@ require "csv"
 # )
 
 # Route.create(
-#   name: "Projectile Dysfunction",
-#   location: "3. Trailhead Wall > Monitor Rock > Independence Pass > Colorado",
-#   mp_url: "https://www.mountainproject.com/route/120913702/projectile-dysfunction",
-#   grade: "5.11a",
-#   lat: 39.07260,
-#   lon: -106.45130,
-#   crag: "3. Trailhead Wall",
-#   area: "Monitor Rock"
+#   name: "Boulder Quartz System",
+#   location: "Right Side > Plotinus Wall > Lower Dream Canyon > Boulder Canyon > Boulder > Colorado",
+#   mp_url: "https://www.mountainproject.com/route/105755836/boulder-quartz-system",
+#   grade: "5.12a",
+#   lat: 40.00683,
+#   lon: -105.40619,
+#   crag: "Right Side",
+#   area: "Plotinus Wall"
 # )
