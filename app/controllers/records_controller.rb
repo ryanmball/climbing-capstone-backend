@@ -189,4 +189,15 @@ class RecordsController < ApplicationController
 
     render json: { days_per_month: dates_all, days_per_year: total_days }
   end
+
+  # Map Data
+  def areas_climbed_map
+    records = Record.where(user_id: current_user.id)
+    climbing_areas = []
+    records.each do |record|
+      climbing_areas << { "lat" => record.route.lat.to_f, "lng" => record.route.lon.to_f, "description" => record.route.crag }
+    end
+    # records.map { |record| [record.route.lat, record.route.lon] }
+    render json: climbing_areas.uniq
+  end
 end

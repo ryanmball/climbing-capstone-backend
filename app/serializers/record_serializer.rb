@@ -3,5 +3,5 @@ class RecordSerializer < ActiveModel::Serializer
 
   # belongs_to :route
   belongs_to :collection
-  belongs_to :user
+  # belongs_to :user
 end
