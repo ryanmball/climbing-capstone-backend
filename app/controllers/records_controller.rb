@@ -67,13 +67,13 @@ class RecordsController < ApplicationController
   def crags
     records = Record.where(user_id: current_user.id)
     crags = records.map { |record| record.route.crag }
-    render json: crags.uniq
+    render json: crags.uniq.sort
   end
 
   def areas
     records = Record.where(user_id: current_user.id)
     areas = records.map { |record| record.route.area }
-    render json: areas.uniq
+    render json: areas.uniq.sort
   end
 
   def collections
