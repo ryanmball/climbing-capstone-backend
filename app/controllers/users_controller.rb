@@ -11,7 +11,8 @@ class UsersController < ApplicationController
       last_name: params[:last_name],
       email: params[:email],
       password: params[:password],
-      password_confirmation: params[:password_confirmation]
+      password_confirmation: params[:password_confirmation],
+      profile_pic: "https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg"
     )
     if user.save
       render json: { message: "User created successfully" }, status: :created
