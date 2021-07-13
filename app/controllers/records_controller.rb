@@ -56,7 +56,13 @@ class RecordsController < ApplicationController
   # Filters
   def grades
     grades = Record.where(user_id: current_user.id).pluck(:grade)
-    render json: grades.uniq.sort
+    grades = grades.uniq.sort
+    grades.delete("5.5")
+    grades.delete("5.6")
+    grades.delete("5.7")
+    grades.delete("5.8")
+    grades.delete("5.9")
+    render json: grades
   end
 
   def partners
