@@ -203,7 +203,6 @@ class RecordsController < ApplicationController
     records.each do |record|
       climbing_areas << { "lat" => record.route.lat.to_f, "lng" => record.route.lon.to_f, "description" => record.route.crag }
     end
-    # records.map { |record| [record.route.lat, record.route.lon] }
     render json: climbing_areas.uniq
   end
 end
