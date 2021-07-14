@@ -200,11 +200,11 @@ class RecordsController < ApplicationController
     dates_all["2021"] = dates2021
 
     days2019 = 0
-    dates_hash2019.sum { |month, num| days2019+=num }
+    dates_hash2019.sum { |_month, num| days2019+=num }
     days2020 = 0
-    dates_hash2020.sum { |month, num| days2020+=num }
+    dates_hash2020.sum { |_month, num| days2020+=num }
     days2021 = 0
-    dates_hash2021.sum { |month, num| days2021+=num }
+    dates_hash2021.sum { |_month, num| days2021+=num }
 
     total_days = {}
     total_days["2019"] = days2019
