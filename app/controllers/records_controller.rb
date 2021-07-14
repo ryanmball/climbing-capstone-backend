@@ -93,6 +93,13 @@ class RecordsController < ApplicationController
     grades_hash = Hash.new(0)
     grades.each { |grade| grades_hash[grade] += 1 }
 
+    # USE THIS TO INCLUDE BELOW 5.10a
+    # totals_array = []
+    # grades_hash.each do |grade, num|
+    #   totals_array << [grade, num]
+    # end
+    # total = totals_array.reduce(0) { |sum, array| sum + array[1] }
+
     grades_hash.delete("5.5")
     grades_hash.delete("5.6")
     grades_hash.delete("5.7")
@@ -103,10 +110,12 @@ class RecordsController < ApplicationController
     grades_hash.each do |grade, num|
       grades_array << [grade, num]
     end
+    total = grades_array.reduce(0) { |sum, array| sum + array[1] }
+
     grades_array.sort_by! { |grade| grade[0] }
     grades_array.unshift(["", ""])
 
-    render json: grades_array
+    render json: { grades: grades_array, total: total } 
   end
 
   def grades_graph_sent
@@ -114,6 +123,13 @@ class RecordsController < ApplicationController
     grades_hash = Hash.new(0)
     grades.each { |grade| grades_hash[grade] += 1 }
 
+    # USE THIS TO INCLUDE BELOW 5.10a
+    # totals_array = []
+    # grades_hash.each do |grade, num|
+    #   totals_array << [grade, num]
+    # end
+    # total = totals_array.reduce(0) { |sum, array| sum + array[1] }
+
     grades_hash.delete("5.5")
     grades_hash.delete("5.6")
     grades_hash.delete("5.7")
@@ -124,10 +140,12 @@ class RecordsController < ApplicationController
     grades_hash.each do |grade, num|
       grades_array << [grade, num]
     end
+    total = grades_array.reduce(0) { |sum, array| sum + array[1] }
+
     grades_array.sort_by! { |grade| grade[0] }
     grades_array.unshift(["", ""])
 
-    render json: grades_array
+    render json: { grades: grades_array, total: total }
   end
 
   def climbing_days
