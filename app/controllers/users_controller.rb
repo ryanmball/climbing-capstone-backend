@@ -35,7 +35,9 @@ class UsersController < ApplicationController
     user.first_name = params[:first_name] || user.first_name
     user.last_name = params[:last_name] || user.last_name
     user.email = params[:email] || user.email
-    user.profile_pic = params[:profile_pic] || user.profile_pic
+    response = Cloudinary::Uploader.upload(params[:image], resource_type: :auto)
+    cloudinary_url = response["secure_url"]
+    user.profile_pic = cloudinary_url || user.profile_pic
     if user.save
       render json: user, status: 200
     else
