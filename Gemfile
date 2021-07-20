@@ -43,3 +43,5 @@ gem 'csv'
 gem 'active_model_serializers'
 
 gem 'cloudinary'
+
+gem 'seed_dump'
