@@ -1,18 +1,18 @@
 require "csv"
 
 # ROUTE SEEDING
-# CSV.foreach(".csv") do |row|
-#   Route.create(
-#     name: row[0],
-#     location: row[1],
-#     mp_url: row[2],
-#     grade: row[3],
-#     lat: row[4],
-#     lon: row[5],
-#     crag: row[6],
-#     area: row[7],
-#   )
-# end
+CSV.foreach("route_seed_file_7.csv") do |row|
+  Route.create(
+    name: row[0],
+    location: row[1],
+    mp_url: row[2],
+    grade: row[3],
+    lat: row[4],
+    lon: row[5],
+    crag: row[6],
+    area: row[7],
+  )
+end
 
 # RECORD SEEDING
 # CSV.foreach(".csv") do |row|
