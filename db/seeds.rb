@@ -1,7 +1,7 @@
 require "csv"
 
 # ROUTE SEEDING
-CSV.foreach("route_seed_file_10.csv") do |row|
+CSV.foreach("route_seed_file_11.csv") do |row|
   Route.create(
     name: row[0],
     location: row[1],
