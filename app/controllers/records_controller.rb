@@ -154,6 +154,7 @@ class RecordsController < ApplicationController
     dates2019 = []
     dates2020 = []
     dates2021 = []
+    dates2022 = []
     dates.each do |date|
       if date.include? "2019"
         dates2019 << date
@@ -161,6 +162,8 @@ class RecordsController < ApplicationController
         dates2020 << date
       elsif date.include? "2021"
         dates2021 << date
+      elsif date.include? "2022"
+        dates2022 << date
       end
     end
     years = dates.map { |date| date[0..-4] }.uniq
@@ -168,6 +171,7 @@ class RecordsController < ApplicationController
     dates_hash2019 = { "2019-01" => 0, "2019-02" => 0, "2019-03" => 0, "2019-04" => 0, "2019-05" => 0, "2019-06" => 0, "2019-07" => 0, "2019-08" => 0, "2019-09" => 0, "2019-10" => 0, "2019-11" => 0, "2019-12" => 0 }
     dates_hash2020 = { "2020-01" => 0, "2020-02" => 0, "2020-03" => 0, "2020-04" => 0, "2020-05" => 0, "2020-06" => 0, "2020-07" => 0, "2020-08" => 0, "2020-09" => 0, "2020-10" => 0, "2020-11" => 0, "2020-12" => 0 }
     dates_hash2021 = { "2021-01" => 0, "2021-02" => 0, "2021-03" => 0, "2021-04" => 0, "2021-05" => 0, "2021-06" => 0, "2021-07" => 0, "2021-08" => 0, "2021-09" => 0, "2021-10" => 0, "2021-11" => 0, "2021-12" => 0 }
+    dates_hash2022 = { "2022-01" => 0, "2022-02" => 0, "2022-03" => 0, "2022-04" => 0, "2022-05" => 0, "2022-06" => 0, "2022-07" => 0, "2022-08" => 0, "2022-09" => 0, "2022-10" => 0, "2022-11" => 0, "2022-12" => 0 }
     if years.include? "2019"
       dates2019.each { |date| dates_hash2019[date] += 1 }
     end
@@ -176,6 +180,9 @@ class RecordsController < ApplicationController
     end
     if years.include? "2021"
       dates2021.each { |date| dates_hash2021[date] += 1 }
+    end
+    if years.include? "2022"
+      dates2022.each { |date| dates_hash2022[date] += 1 }
     end
 
     dates2019 = []
@@ -190,14 +197,20 @@ class RecordsController < ApplicationController
     dates_hash2021.each do |month, num|
       dates2021 << [month, num]
     end
+    dates2022 = []
+    dates_hash2022.each do |month, num|
+      dates2022 << [month, num]
+    end
     dates2019.unshift(["", ""])
     dates2020.unshift(["", ""])
     dates2021.unshift(["", ""])
+    dates2022.unshift(["", ""])
 
-    dates_all = { "2019" => [], "2020" => [], "2021" => [] }
+    dates_all = { "2019" => [], "2020" => [], "2021" => [], "2022" => [] }
     dates_all["2019"] = dates2019
     dates_all["2020"] = dates2020
     dates_all["2021"] = dates2021
+    dates_all["2022"] = dates2022
 
     days2019 = 0
     dates_hash2019.sum { |_month, num| days2019+=num }
@@ -205,11 +218,14 @@ class RecordsController < ApplicationController
     dates_hash2020.sum { |_month, num| days2020+=num }
     days2021 = 0
     dates_hash2021.sum { |_month, num| days2021+=num }
+    days2022 = 0
+    dates_hash2022.sum { |_month, num| days2022+=num }
 
     total_days = {}
     total_days["2019"] = days2019
     total_days["2020"] = days2020
     total_days["2021"] = days2021
+    total_days["2022"] = days2022
 
     render json: { days_per_month: dates_all, days_per_year: total_days }
   end
